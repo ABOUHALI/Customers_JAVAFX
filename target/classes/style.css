@@ -1,0 +1,20 @@
+.panel {
+    -fx-background-color: #005797;
+}
+
+.button{
+    -fx-background-radius: 12px;
+}
+
+.text{
+    -fx-color-label-visible: orange;
+}
+
+.title{
+    -fx-font-size: 35px;
+}
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #616161;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */
+}
