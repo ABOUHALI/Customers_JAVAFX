@@ -64,10 +64,12 @@ public class TableViewController implements Initializable {
         JsonConfig jsonConfig = new JsonConfig();
         List<Customer> customers = jsonConfig.loadCustomers();
 
-        customers.sort(Customer::compareTo);
+        Collections.sort(customers, Comparator.comparingDouble(Customer ::getTotalPurchases).reversed());
+
         List<Customer> topten = customers.subList(0,10);
         customersList = FXCollections.observableArrayList();
         for (Customer customer :topten) {
+                //System.out.println(customer.getPriceString());
                 customersList.add(customer);
         }
         tableView.setItems(customersList);
@@ -83,6 +85,7 @@ public class TableViewController implements Initializable {
         customersList = FXCollections.observableArrayList();
         for (Customer customer :customers) {
             if(customer.isSaved())
+                //System.out.println(customer.getPriceString());
                 customersList.add(customer);
         }
         tableView.setItems(customersList);
@@ -96,11 +99,7 @@ public class TableViewController implements Initializable {
         imageView.setImage(null);
         JsonConfig jsonConfig = new JsonConfig();
         List<Customer> customers = jsonConfig.loadCustomers();
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        totalPurchaseColumn.setCellValueFactory(new PropertyValueFactory<>("priceString"));
+
 
         for (Customer customer :customers) {
             customersList.add(customer);
@@ -114,6 +113,13 @@ public class TableViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        totalPurchaseColumn.setCellValueFactory(new PropertyValueFactory<>("priceString"));
+
         loadAllCustomers();
     }
 
